@@ -1,0 +1,1 @@
+## Simple app for meal tracking made with vanilla javascript
