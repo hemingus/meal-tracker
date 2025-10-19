@@ -5,3 +5,16 @@
     padding: 0;
     box-sizing: border-box;
 }
+
+:root {
+    --color1: #885053;
+    --color2: #023C40;
+    --color3: #EDF7D2;
+    --color4: #F18F01;
+    --color5: #F3C677;
+}
+
+.meal-card {
+    background-color: orange;
+    color: darkblue;
+}
