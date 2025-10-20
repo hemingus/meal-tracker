@@ -1,10 +1,36 @@
 // main script
 
+
+
+const clearFoodsButton = document.createElement("button");
+clearFoodsButton.textContent = "clear foods";
+clearFoodsButton.addEventListener("click", (event) => {
+    localStorage.removeItem("foods");
+    foods.length = 0;
+    renderFoods();
+})
+document.body.append(clearFoodsButton);
+
+const addFoodsButton = document.createElement("button");
+addFoodsButton.textContent = "add foods";
+addFoodsButton.addEventListener("click", (event) => {
+    const food1 = new Food("Fiskegrategn", 160);
+    const food2 = new Food("Kjøttkaker", 200);
+    const food3 = new Food("Milkshake", 50, {isDrink: true});
+    addFood(food1);
+    addFood(food2);
+    addFood(food3);
+    localStorage.setItem("foods", JSON.stringify(foods));
+    renderFoods();
+})
+
+document.body.append(addFoodsButton);
+
 // Classes
 class Food {
-    constructor (foodname, energyDensity, {isDrink=false, description=""}) {
+    constructor (foodName, energyDensity, {isDrink=false, description=""} = {}) {
         this.id = crypto.randomUUID();
-        this.foodname = foodname;
+        this.foodName = foodName;
         this.energyDensity = energyDensity;
         this.isDrink = isDrink;
         this.description = description;
@@ -12,16 +38,15 @@ class Food {
 }
 
 class Meal {
-    constructor (foods, timestamp) {
+    constructor (mealItems = [], timestamp = new Date()) {
         this.id = crypto.randomUUID();
-        this.foods = foods;
+        this.mealItems = mealItems;
         this.timestamp = timestamp;
     }
 
     get totalCalories() {
-        return this.foods.reduce((sum, item) => sum + item.getCalories, 0);
+        return this.mealItems.reduce((sum, item) => sum + item.calories, 0);
     }
-
 }
 
 class MealItem {
@@ -30,7 +55,7 @@ class MealItem {
         this.amount = amount;
     }
 
-    getCalories() {
+    get calories() {
         return (this.food.energyDensity * this.amount) / 100;
     }
 }
@@ -38,60 +63,78 @@ class MealItem {
 const meals = JSON.parse(localStorage.getItem("meals")) || [];
 const foods = JSON.parse(localStorage.getItem("foods")) || [];
 const mealContainer = document.querySelector("#meals-container");
+const foodContainer = document.querySelector("#foods-container");
 
-const mockMeals = [{
-    food: "potato",
-    time: Date.now(),
-    amount: 152,
-    energyDensity: 399
-},
-{
-    food: "meatballs",
-    time: Date.now(),
-    amount: 152,
-    energyDensity: 399
-}]
-
-if (meals.length === 0) {
-    mockMeals.forEach(meal => addMeal(meal.food, meal.amount, meal.energyDensity));
-    addMeal("chips", 300, 566);
-}
-
-
-function addMeal(food, amount, energyDensity) {
-    const newMeal = {
-        food,
-        time: Date.now(),
-        amount,
-        energyDensity
-    }
-    meals.push(newMeal);
-    renderMeals();
+function renderFoods() {
+    foodContainer.replaceChildren();
+    foods.forEach(food => {
+        createFoodElement(food);
+    })
 }
 
 function renderMeals() {
+    meals.forEach(meal => {
+        createMealElement(meal)
+    })
+}
+
+function createFoodElement(food) {
+    const foodCard = document.createElement("div");
+    foodCard.id = food.id;
+    foodCard.classList.add("food-card");
+
+    const nameElement = document.createElement("p");
+    const icon = food.isDrink ? "🥤" : "🍔";
+    nameElement.textContent = `${icon} ${food.foodName}`;
+    foodCard.append(nameElement);
+
+    const energyElement = document.createElement("p");
+    energyElement.textContent = `${food.energyDensity}`;
+    foodCard.append(energyElement);
+
+    if (food.description) {
+        const descriptionElement = document.createElement("p");
+        descriptionElement.textContent = food.description;
+        foodCard.append(descriptionElement);
+    }
+
+    const removeButton = document.createElement("button");
+    removeButton.textContent = "Remove";
+    removeButton.addEventListener("click", (event) => {
+        const index = foods.findIndex(item => item.id === food.id);
+        if (index !== -1) {
+            foods.splice(index, 1);
+            console.log(`removed item with id: ${food.id} from foods.`);
+            localStorage.setItem("foods", JSON.stringify(foods));
+        }
+        
+        renderFoods();
+    })
+    foodCard.append(removeButton);
+    foodContainer.append(foodCard);
+}
+
+function createMealElement(meal) {
+    return null;
+}
+   
+function renderMeals() {
     mealContainer.replaceChildren();
     meals.forEach((meal, index) => {
-        const mealElement = document.createElement("div");
-        mealElement.classList.add("meal-card")
-
-        // Food
-        const foodElement = document.createElement("p");
-        foodElement.textContent = `Food: ${meal.food}`;
-
-        // Amount
-        const amountElement = document.createElement("p");
-        amountElement.textContent = `Amount: ${meal.amount}`;
-
-        // Calories
-        const caloriesElement = document.createElement("p");
-        caloriesElement.textContent = `Calories: ${meal.energyDensity}`;
-
-        mealElement.append(foodElement, amountElement, caloriesElement);
-        mealContainer.append(mealElement);    
+        createMealElement(meal);
     })
     localStorage.setItem("meals", JSON.stringify(meals));
 }
 
-renderMeals();
+function addFood(food) {
+    foods.push(food);
+    localStorage.setItem("foods", JSON.stringify(foods));
+}
+
+
+
+renderFoods();
+
+
+
 
