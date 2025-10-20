@@ -14,6 +14,25 @@
     --color5: #F3C677;
 }
 
+
+
+#food-form {
+    background-image: linear-gradient(var(--color2) -100%, var(--color3), var(--color2) 200%);
+    text-align: left;
+    width: 30rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    border: 2px solid var(--color2);
+    border-radius: 0.5rem;
+    padding: 1rem;
+}
+
+#food-form input {
+    width: 100%;
+}
+
 #meals-container {
     display: flex;
     flex-direction: column;
@@ -21,6 +40,16 @@
     align-items: center;
     gap: 1rem;
     background-color: var(--color2);
+}
+
+#foods-container {
+    display: flex;
+    justify-content: flex-start;
+    align-items: stretch;
+    flex-wrap: wrap;
+    gap: 1rem;
+    background-color: var(--color2);
+    padding: 3rem;
 }
 
 .meal-card {
@@ -36,10 +65,11 @@
 }
 
 .food-card {
+    max-width: 300px;
     background-color: var(--color5);
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: space-between;
     align-items: flex-start;
     gap: 1rem;
     padding: 1rem;
