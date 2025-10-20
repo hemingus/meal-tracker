@@ -41,15 +41,15 @@ function renderMeals() {
 
         // Food
         const foodElement = document.createElement("p");
-        foodElement.textContent = meal.food;
+        foodElement.textContent = `Food: ${meal.food}`;
 
         // Amount
         const amountElement = document.createElement("p");
-        amountElement.textContent = meal.amount;
+        amountElement.textContent = `Amount: ${meal.amount}`;
 
         // Calories
         const caloriesElement = document.createElement("p");
-        caloriesElement.textContent = meal.energyDensity;
+        caloriesElement.textContent = `Calories: ${meal.energyDensity}`;
 
         mealElement.append(foodElement, amountElement, caloriesElement);
         mealContainer.append(mealElement);    
