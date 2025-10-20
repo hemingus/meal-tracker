@@ -24,9 +24,13 @@ class MealItem {
         this.food = food;
         this.amount = amount;
     }
+    getCalories() {
+        return (this.food.energyDensity * this.amount) / 100;
+    }
 }
 
 const meals = JSON.parse(localStorage.getItem("meals")) || [];
+const foods = JSON.parse(localStorage.getItem("foods")) || [];
 const mealContainer = document.querySelector("#meals-container");
 
 const mockMeals = [{
