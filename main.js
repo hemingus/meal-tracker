@@ -1,6 +1,6 @@
 // main script
 
-
+import { Food, Meal, MealItem } from "./classes.js"
 
 const clearFoodsButton = document.createElement("button");
 clearFoodsButton.textContent = "clear foods";
@@ -26,44 +26,27 @@ addFoodsButton.addEventListener("click", (event) => {
 
 document.body.append(addFoodsButton);
 
-// Classes
-class Food {
-    constructor (foodName, energyDensity, {isDrink=false, description=""} = {}) {
-        this.id = crypto.randomUUID();
-        this.foodName = foodName;
-        this.energyDensity = energyDensity;
-        this.isDrink = isDrink;
-        this.description = description;
-    }
-}
-
-class Meal {
-    constructor (mealItems = [], timestamp = new Date()) {
-        this.id = crypto.randomUUID();
-        this.mealItems = mealItems;
-        this.timestamp = timestamp;
-    }
-
-    get totalCalories() {
-        return this.mealItems.reduce((sum, item) => sum + item.calories, 0);
-    }
-}
-
-class MealItem {
-    constructor(food, amount) {
-        this.food = food;
-        this.amount = amount;
-    }
-
-    get calories() {
-        return (this.food.energyDensity * this.amount) / 100;
-    }
-}
-
 const meals = JSON.parse(localStorage.getItem("meals")) || [];
 const foods = JSON.parse(localStorage.getItem("foods")) || [];
+
 const mealContainer = document.querySelector("#meals-container");
 const foodContainer = document.querySelector("#foods-container");
+
+const foodForm = document.querySelector("#food-form");
+foodForm.addEventListener("submit", (e) => {
+    e.preventDefault();
+    const foodName = document.getElementById("foodName-input").value.trim();
+    const energyDensity = document.getElementById("energyDensity-input").value;
+    const isDrink = document.getElementById("isDrink-input").checked;
+    const description = document.getElementById("foodDescription-input").value.trim();
+
+    if (!foodName || isNaN(energyDensity)) {
+        alert("New food: fill in all required fields");
+        return
+    }
+    addFood(new Food(foodName, energyDensity, { isDrink, description }));
+    e.target.reset();
+})
 
 function renderFoods() {
     foodContainer.replaceChildren();
@@ -73,11 +56,12 @@ function renderFoods() {
 }
 
 function renderMeals() {
-    meals.forEach(meal => {
-        createMealElement(meal)
+    mealContainer.replaceChildren();
+    meals.forEach((meal, index) => {
+        createMealElement(meal);
     })
+    localStorage.setItem("meals", JSON.stringify(meals));
 }
-
 function createFoodElement(food) {
     const foodCard = document.createElement("div");
     foodCard.id = food.id;
@@ -89,7 +73,8 @@ function createFoodElement(food) {
     foodCard.append(nameElement);
 
     const energyElement = document.createElement("p");
-    energyElement.textContent = `${food.energyDensity}`;
+    let units = food.isDrink ? "kcal / 100ml" : "kcal / 100g"
+    energyElement.textContent = `Energy: ${food.energyDensity} ${units}`;
     foodCard.append(energyElement);
 
     if (food.description) {
@@ -118,17 +103,12 @@ function createMealElement(meal) {
     return null;
 }
    
-function renderMeals() {
-    mealContainer.replaceChildren();
-    meals.forEach((meal, index) => {
-        createMealElement(meal);
-    })
-    localStorage.setItem("meals", JSON.stringify(meals));
-}
+
 
 function addFood(food) {
     foods.push(food);
     localStorage.setItem("foods", JSON.stringify(foods));
+    renderFoods();
 }
 
 
