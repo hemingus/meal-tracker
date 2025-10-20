@@ -17,6 +17,11 @@ class Meal {
         this.foods = foods;
         this.timestamp = timestamp;
     }
+
+    get totalCalories() {
+        return this.foods.reduce((sum, item) => sum + item.getCalories, 0);
+    }
+
 }
 
 class MealItem {
@@ -24,6 +29,7 @@ class MealItem {
         this.food = food;
         this.amount = amount;
     }
+
     getCalories() {
         return (this.food.energyDensity * this.amount) / 100;
     }
