@@ -14,7 +14,23 @@
     --color5: #F3C677;
 }
 
+#meals-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    background-color: var(--color2);
+}
+
 .meal-card {
-    background-color: orange;
-    color: darkblue;
+    background-color: var(--color5);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 1rem;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    border: 1px solid var(--color4);
 }
