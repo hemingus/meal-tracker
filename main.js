@@ -1,5 +1,31 @@
 // main script
 
+// Classes
+class Food {
+    constructor (foodname, energyDensity, {isDrink=false, description=""}) {
+        this.id = crypto.randomUUID();
+        this.foodname = foodname;
+        this.energyDensity = energyDensity;
+        this.isDrink = isDrink;
+        this.description = description;
+    }
+}
+
+class Meal {
+    constructor (foods, timestamp) {
+        this.id = crypto.randomUUID();
+        this.foods = foods;
+        this.timestamp = timestamp;
+    }
+}
+
+class MealItem {
+    constructor(food, amount) {
+        this.food = food;
+        this.amount = amount;
+    }
+}
+
 const meals = JSON.parse(localStorage.getItem("meals")) || [];
 const mealContainer = document.querySelector("#meals-container");
 
