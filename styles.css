@@ -31,8 +31,11 @@
 
 #food-form input {
     width: 100%;
+    background: var(--color5);
 }
-
+#food-form label {
+    width: 100%;
+}
 #meals-container {
     display: flex;
     flex-direction: column;
