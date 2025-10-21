@@ -1,7 +1,7 @@
 // Classes
 export class Food {
-    constructor (foodName, energyDensity, {isDrink=false, description=""} = {}) {
-        this.id = crypto.randomUUID();
+    constructor (foodName, energyDensity, { id = crypto.randomUUID(), isDrink=false, description=""} = {}) {
+        this.id = id;
         this.foodName = foodName;
         this.energyDensity = energyDensity;
         this.isDrink = isDrink;
@@ -14,14 +14,14 @@ export class Food {
     }
 
     get foodEmoji() {
-        const emoji = this.isDrink ? "🥤" : "🍔";
+        const emoji = this.isDrink ? "🥤" : "🍽️";
         return emoji;
     }
 }
 
 export class Meal {
-    constructor (mealItems = [], category = "snack", timestamp = new Date()) {
-        this.id = crypto.randomUUID();
+    constructor (mealItems = [], category = "Snack", { id = crypto.randomUUID(), timestamp = Date.now() } = {}) {
+        this.id = id;
         this.mealItems = mealItems;
         this.category = category;
         this.timestamp = timestamp;
