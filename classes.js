@@ -9,8 +9,13 @@ export class Food {
     }
 
     get densityUnits() {
-        const units = this.isDrink ? "kcal / 100ml" : "kcal / 100g";
+        const units = this.isDrink ? "kcal/100ml" : "kcal/100g";
         return units;
+    }
+
+    get foodEmoji() {
+        const emoji = this.isDrink ? "🥤" : "🍔";
+        return emoji;
     }
 }
 

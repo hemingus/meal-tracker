@@ -77,9 +77,8 @@ function createFoodElement(food) {
     foodCard.id = food.id;
     foodCard.classList.add("food-card");
 
-    const nameElement = document.createElement("p");
-    const icon = food.isDrink ? "🥤" : "🍔";
-    nameElement.textContent = `${icon} ${food.foodName}`;
+    const nameElement = document.createElement("h3");
+    nameElement.textContent = `${food.foodEmoji} ${food.foodName}`;
     foodCard.append(nameElement);
 
     const energyElement = document.createElement("p");
@@ -132,11 +131,11 @@ mealForm.addEventListener("submit", (e) => {
 
 // Meal card
 function createMealElement(meal) {
-    const categoryElement = document.createElement("h4");
+    const categoryElement = document.createElement("h3");
     categoryElement.textContent = meal.category;
     mealContainer.append(categoryElement);
 
-    const timestampElement = document.createElement("h5");
+    const timestampElement = document.createElement("h4");
     timestampElement.textContent = meal.timestamp;
     mealContainer.append(timestampElement);
 
