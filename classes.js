@@ -7,12 +7,18 @@ export class Food {
         this.isDrink = isDrink;
         this.description = description;
     }
+
+    get densityUnits() {
+        const units = this.isDrink ? "kcal / 100ml" : "kcal / 100g";
+        return units;
+    }
 }
 
 export class Meal {
-    constructor (mealItems = [], timestamp = new Date()) {
+    constructor (mealItems = [], category = "snack", timestamp = new Date()) {
         this.id = crypto.randomUUID();
         this.mealItems = mealItems;
+        this.category = category;
         this.timestamp = timestamp;
     }
 

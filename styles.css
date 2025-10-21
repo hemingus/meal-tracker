@@ -29,13 +29,42 @@
     padding: 1rem;
 }
 
+
+
+
+
 #food-form input {
     width: 100%;
     background: var(--color5);
+    padding: 4px;
 }
 #food-form label {
     width: 100%;
+    padding: 4px;
 }
+
+.checkbox-field {
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.checkbox-field input {
+    width: auto !important;
+}
+
+.checkbox-field label {
+    width: auto !important;
+}
+
+.edit-form-wrapper {
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+}
+
 #meals-container {
     display: flex;
     flex-direction: column;

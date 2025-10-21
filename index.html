@@ -23,10 +23,11 @@
                 <input type="number" id="energyDensity-input" required>
             </label>
 
-            <label>
-                This is a drink
-                <input type="checkbox" id="isDrink-input">
-            </label>
+            <div class="checkbox-field">
+                <label>This is a drink</label>
+                <input class="checkbox" type="checkbox" id="isDrink-input">
+            </div>
+            
 
             <label>
                 Description (optional):
@@ -36,6 +37,31 @@
              <button type="submit">Add Food</button>
         </form>
         <div id="foods-container"></div>
+
+        <form id="meal-form">
+            <h3>New Meal</h3>
+
+            <label>
+                Meal name:
+                <input type="text" id="mealName-input" required>
+            </label>
+
+            <label for="foodInput">Food:</label>
+            <input list="foodList" id="foodInput" placeholder="Type food name">
+            <datalist id="foodList"></datalist>
+
+            <label class="checkbox-field">
+                This is a drink
+                <input type="checkbox" id="isDrink-input">
+            </label>
+
+            <label>
+                Description (optional):
+                <input type="text" id="foodDescription-input">
+            </label>
+
+             <button type="submit">Add Meal</button>
+        </form>
         <div id="meals-container"></div>
     </main>
 </body>
