@@ -4,10 +4,12 @@ import { Food, Meal, MealItem } from "./classes.js"
 
 
 // Globals
-const mealCategories = ["breakfast", "lunch", "dinner", "snack"]
+const mealCategories = ["Breakfast", "Lunch", "Dinner", "Snack"]
 
-const meals = JSON.parse(localStorage.getItem("meals")) || [];
-const foods = JSON.parse(localStorage.getItem("foods")) || [];
+const storedMeals = JSON.parse(localStorage.getItem("meals")) || [];
+const meals = storedMeals.map(m => new Meal(m.mealItems, m.category, m));
+const storedFoods = JSON.parse(localStorage.getItem("foods")) || [];
+const foods = storedFoods.map(f => new Food(f.foodName, f.energyDensity, f));
 
 const mealContainer = document.querySelector("#meals-container");
 const foodContainer = document.querySelector("#foods-container");
