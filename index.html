@@ -34,7 +34,7 @@
                 <input type="text" id="foodDescription-input">
             </label>
 
-             <button type="submit">Add Food</button>
+             <button type="submit">Save Food</button>
         </form>
 
         <section>
@@ -58,10 +58,14 @@
             </label>
 
             <label for="foodInput">Food:</label>
-            <input list="foodList" id="foodInput" placeholder="Type food name">
-            <datalist id="foodList"></datalist>
-            <div id="meal-items"></div>
-            <button type="submit">Add Meal</button>
+            <div class="meal-item-inputs">
+                <input id="food-input" list="food-list" placeholder="Food name">
+                <input id="amount-input" type="number" placeholder="Amount (g / ml)" min="1">
+                <button type="button" id="addMealItem-button">+ Add Meal Item</button>
+            </div>
+            <datalist id="food-list"></datalist>
+            <div class="meal-items" id="meal-items"></div>
+            <button type="submit">Save Meal</button>
         </form>
 
         <section>
