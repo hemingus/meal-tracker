@@ -10,7 +10,7 @@
 <body>
     <main>
         <h1>Meal Tracker</h1>
-        <form id="food-form">
+        <form id="food-form" class="form">
             <h3>New Food</h3>
 
             <label>
@@ -24,7 +24,7 @@
             </label>
 
             <div class="checkbox-field">
-                <label>This is a drink</label>
+                <label>Is a drink/beverage</label>
                 <input class="checkbox" type="checkbox" id="isDrink-input">
             </div>
             
@@ -36,24 +36,38 @@
 
              <button type="submit">Add Food</button>
         </form>
-        <div id="foods-container"></div>
 
-        <form id="meal-form">
+        <section>
+            <h2>Food</h2>
+            <div id="foods-container">
+                
+            </div>
+        </section>
+
+        <form id="meal-form" class="form">
             <h3>New Meal</h3>
 
             <label>
-                Meal name:
-                <input type="text" id="mealName-input" required>
+                Meal category:
+                <select id="meal-category" name="meal-category" required>
+                    <option value="Breakfast">Breakfast</option>
+                    <option value="Lunch">Lunch</option>
+                    <option value="Dinner">Dinner</option>
+                    <option value="Snack">Snack</option>
+                </select>
             </label>
 
             <label for="foodInput">Food:</label>
             <input list="foodList" id="foodInput" placeholder="Type food name">
             <datalist id="foodList"></datalist>
-
-             <button type="submit">Add Meal</button>
+            <div id="meal-items"></div>
+            <button type="submit">Add Meal</button>
         </form>
-        <div id="meal-items"></div>
-        <div id="meals-container"></div>
+
+        <section>
+            <h2>Meal</h2>
+            <div id="meals-container"></div>
+        </section>
     </main>
 </body>
 </html>
