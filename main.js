@@ -1,11 +1,6 @@
-// main script
-
 import { Food, Meal, MealItem } from "./classes.js"
 
-
-// Globals
-const mealCategories = ["Breakfast", "Lunch", "Dinner", "Snack"]
-
+// <-- Globals -->
 const storedMeals = JSON.parse(localStorage.getItem("meals")) || [];
 const meals = storedMeals.map(m => new Meal(m.mealItems, m.category, m));
 const storedFoods = JSON.parse(localStorage.getItem("foods")) || [];
@@ -14,6 +9,11 @@ const foods = storedFoods.map(f => new Food(f.foodName, f.energyDensity, f));
 const mealContainer = document.querySelector("#meals-container");
 const foodContainer = document.querySelector("#foods-container");
 
+// =======================================================================
+// <-- Runs when app starts -->
+// =======================================================================
+
+// Food form -> add event listener
 const foodForm = document.querySelector("#food-form");
 foodForm.addEventListener("submit", (e) => {
     e.preventDefault();
@@ -30,24 +30,26 @@ foodForm.addEventListener("submit", (e) => {
     e.target.reset();
 })
 
-// Render functions
-function renderFoods() {
-    foodContainer.replaceChildren();
-    foods.forEach(food => {
-        createFoodElement(food);
-    })
-    localStorage.setItem("foods", JSON.stringify(foods));
-}
+// Meal form -> add event listener
+const mealForm = document.querySelector("#meal-form");
+mealForm.addEventListener("submit", (e) => {
+    e.preventDefault();
 
-function renderMeals() {
-    mealContainer.replaceChildren();
-    meals.forEach((meal, index) => {
-        createMealElement(meal);
-    })
-    localStorage.setItem("meals", JSON.stringify(meals));
-}
+    addMeal(new Meal(foodName, energyDensity, { isDrink, description }));
+    e.target.reset();
+})
 
-// Food card
+// Render
+renderFoods();
+renderMeals();
+
+
+
+// =========
+// Functions
+// =========
+
+// <-- Create element functions -->
 function createFoodElement(food) {
     const foodCard = document.createElement("div");
     foodCard.id = food.id;
@@ -77,8 +79,6 @@ function createFoodElement(food) {
     foodContainer.append(foodCard);
 }
 
-// Create edit form
-
 function createEditForm() {
     const editButton = document.createElement("button");
     editButton.textContent = "Edit";
@@ -95,17 +95,6 @@ function createEditForm() {
     })
 }
 
-
-// Meal form
-const mealForm = document.querySelector("#meal-form");
-mealForm.addEventListener("submit", (e) => {
-    e.preventDefault();
-
-    addMeal(new Meal(foodName, energyDensity, { isDrink, description }));
-    e.target.reset();
-})
-
-// Meal card
 function createMealElement(meal) {
     const categoryElement = document.createElement("h3");
     categoryElement.textContent = meal.category;
@@ -132,7 +121,7 @@ function createMealElement(meal) {
     mealContainer.append(mealItemsContainer);
 }
 
-// Add / Remove Meals
+// <-- Add / Remove functions -->
 function addMeal(meal) {
     meals.push(meal);
     localStorage.setItem("meals", JSON.stringify(meals));
@@ -149,7 +138,6 @@ function removeMeal(meal) {
     renderMeals();
 }
 
-// Add / Remove Foods
 function addFood(food) {
     foods.push(food);
     localStorage.setItem("foods", JSON.stringify(foods));
@@ -166,9 +154,25 @@ function removeFood(food) {
     renderFoods();
 }
 
+// <-- Render functions -->
+function renderFoods() {
+    foodContainer.replaceChildren();
+    foods.forEach(food => {
+        createFoodElement(food);
+    })
+    localStorage.setItem("foods", JSON.stringify(foods));
+}
 
-renderFoods();
-renderMeals();
+function renderMeals() {
+    mealContainer.replaceChildren();
+    meals.forEach((meal, index) => {
+        createMealElement(meal);
+    })
+    localStorage.setItem("meals", JSON.stringify(meals));
+}
+
+
+
 
 
 
