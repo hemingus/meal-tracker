@@ -36,17 +36,9 @@ foodForm.addEventListener("submit", (e) => {
     e.target.reset();
 })
 
-// Meal form -> add event listener
-const mealForm = document.querySelector("#meal-form");
-mealForm.addEventListener("submit", (e) => {
-    e.preventDefault();
-
-    addMeal(new Meal(foodName, energyDensity, { isDrink, description }));
-    e.target.reset();
-})
-
 // Meal Item adding handling
-const mealItems = [];
+let mealItems = [];
+const categorySelect = document.querySelector("#meal-category");
 const foodInput = document.querySelector("#food-input");
 const amountInput = document.querySelector("#amount-input");
 
@@ -76,6 +68,21 @@ addMealItemButton.addEventListener("click", (e) => {
     amountInput.value = "";
     foodInput.focus();
 })
+
+// Meal form -> add event listener
+const mealForm = document.querySelector("#meal-form");
+mealForm.addEventListener("submit", (e) => {
+    e.preventDefault();
+    if (mealItems.length > 0) {
+        addMeal(new Meal(mealItems, categorySelect.value));
+        mealItems = [];
+        e.target.reset();
+        return
+    } 
+    alert("Meal has no content. Add minimum 1 meal item.")
+})
+
+
 
 // Render
 renderFoods();

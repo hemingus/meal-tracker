@@ -55,21 +55,25 @@ export function createEditButton() {
 }
 
 export function createMealElement(meal) {
+    const mealCard = document.createElement("div");
+    mealCard.classList.add("meal-card");
     const categoryElement = document.createElement("h3");
     categoryElement.textContent = meal.category;
-    mealContainer.append(categoryElement);
+    mealCard.append(categoryElement);
 
     const timestampElement = document.createElement("h4");
     timestampElement.textContent = meal.timestamp;
-    mealContainer.append(timestampElement);
+    mealCard.append(timestampElement);
 
-    const mealItemsContainer = document.createElement("div");
-    mealItemsContainer.classList.add("meal-items");
+    const mealItemsElement = document.createElement("div");
+    mealItemsElement.classList.add("meal-items");
     meal.mealItems.forEach(item => {
         const mealParagraph = document.createElement("p");
         mealParagraph.textContent = `${item.amount} ${item.food.densityUnits} ${item.food.foodName} ${item.food}`
-        mealItemsContainer.append(mealParagraph);
+        mealItemsElement.append(mealParagraph);
     })
+
+    mealCard.append(mealItemsElement);
 
     const removeButton = document.createElement("button");
     removeButton.textContent = "Remove";
@@ -77,5 +81,6 @@ export function createMealElement(meal) {
         e.preventDefault();
         removeMeal(meal);
     })
-    return mealItemsContainer;
+    mealCard.append(categoryElement, timestampElement, mealItemsElement, removeButton);
+    return mealCard;
 }
