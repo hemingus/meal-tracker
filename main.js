@@ -14,32 +14,6 @@ const foods = storedFoods.map(f => new Food(f.foodName, f.energyDensity, f));
 const mealContainer = document.querySelector("#meals-container");
 const foodContainer = document.querySelector("#foods-container");
 
-// const clearFoodsButton = document.createElement("button");
-// clearFoodsButton.textContent = "clear foods";
-// clearFoodsButton.addEventListener("click", (event) => {
-//     localStorage.removeItem("foods");
-//     foods.length = 0;
-//     renderFoods();
-// })
-// document.body.append(clearFoodsButton);
-
-// const addFoodsButton = document.createElement("button");
-// addFoodsButton.textContent = "add foods";
-// addFoodsButton.addEventListener("click", (event) => {
-//     const food1 = new Food("Fiskegrategn", 160);
-//     const food2 = new Food("Kjøttkaker", 200);
-//     const food3 = new Food("Milkshake", 50, {isDrink: true});
-//     addFood(food1);
-//     addFood(food2);
-//     addFood(food3);
-//     localStorage.setItem("foods", JSON.stringify(foods));
-//     renderFoods();
-// })
-
-// document.body.append(addFoodsButton);
-
-
-// Food form
 const foodForm = document.querySelector("#food-form");
 foodForm.addEventListener("submit", (e) => {
     e.preventDefault();
