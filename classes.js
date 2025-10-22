@@ -13,6 +13,10 @@ export class Food {
         return units;
     }
 
+    get units() {
+        return this.isDrink ? "ml" : "g";
+    }
+
     get foodEmoji() {
         const emoji = this.isDrink ? "🥤" : "🍽️";
         return emoji;
