@@ -1,11 +1,17 @@
 import { Food, Meal, MealItem } from "./classes.js"
+import { 
+    createMealItemElement,
+    createFoodElement,
+    createEditButton,
+    createMealElement
+} from "./script_modules/createFunctions.js"
 
 // <-- Globals -->
 const storedMeals = JSON.parse(localStorage.getItem("meals")) || [];
 const meals = storedMeals.map(m => new Meal(m.mealItems, m.category, m));
 const storedFoods = JSON.parse(localStorage.getItem("foods")) || [];
 const foods = storedFoods.map(f => new Food(f.foodName, f.energyDensity, f));
-
+const mealItemsContainer = document.querySelector("#meal-items");
 const mealContainer = document.querySelector("#meals-container");
 const foodContainer = document.querySelector("#foods-container");
 
@@ -39,6 +45,38 @@ mealForm.addEventListener("submit", (e) => {
     e.target.reset();
 })
 
+// Meal Item adding handling
+const mealItems = [];
+const foodInput = document.querySelector("#food-input");
+const amountInput = document.querySelector("#amount-input");
+
+const addMealItemButton = document.querySelector("#addMealItem-button");
+addMealItemButton.addEventListener("click", (e) => {
+    e.preventDefault();
+    const foodName = foodInput.value.trim();
+    const amount = parseFloat(amountInput.value);
+
+    const food = foods.find(
+        f => f.foodName.toLowerCase() === foodName.toLowerCase()
+    );
+
+    if (!food) {
+        alert(`Can't find the food: "${foodName}".`);
+        return;
+    }
+    if (isNaN(amount) || amount <= 0) {
+        alert("Please enter a valid amount (greater than 0).");
+        return;
+    }
+    const mealItem = new MealItem(food, amount);
+    mealItems.push(mealItem);
+    console.log(mealItems);
+    renderMealItems();
+    foodInput.value = "";
+    amountInput.value = "";
+    foodInput.focus();
+})
+
 // Render
 renderFoods();
 renderMeals();
@@ -49,86 +87,14 @@ renderMeals();
 // Functions
 // =========
 
-// <-- Create element functions -->
-function createFoodElement(food) {
-    const foodCard = document.createElement("div");
-    foodCard.id = food.id;
-    foodCard.classList.add("food-card");
-
-    const nameElement = document.createElement("h3");
-    nameElement.textContent = `${food.foodEmoji} ${food.foodName}`;
-    foodCard.append(nameElement);
-
-    const energyElement = document.createElement("p");
-    energyElement.textContent = `Energy: ${food.energyDensity} ${food.densityUnits}`;
-    foodCard.append(energyElement);
-
-    if (food.description) {
-        const descriptionElement = document.createElement("p");
-        descriptionElement.textContent = food.description;
-        foodCard.append(descriptionElement);
-    }
-
-    const removeButton = document.createElement("button");
-    removeButton.textContent = "Remove";
-    removeButton.addEventListener("click", (e) => {
-        e.preventDefault();
-        removeFood(food);
-    })
-    foodCard.append(removeButton);
-    foodContainer.append(foodCard);
-}
-
-function createEditForm() {
-    const editButton = document.createElement("button");
-    editButton.textContent = "Edit";
-    editButton.addEventListener("click", (e) => {
-        e.preventDefault();
-        const editForm = document.createElement("form");
-        editForm.classList.add("edit-form");
-        // TODO - lag ny funksjon for å opprette EditForm 
-        editForm.addEventListener("submit", (e) => {
-            e.preventDefault();
-
-        })
-        document.body.append(editForm)
-    })
-}
-
-function createMealElement(meal) {
-    const categoryElement = document.createElement("h3");
-    categoryElement.textContent = meal.category;
-    mealContainer.append(categoryElement);
-
-    const timestampElement = document.createElement("h4");
-    timestampElement.textContent = meal.timestamp;
-    mealContainer.append(timestampElement);
-
-    const mealItemsContainer = document.createElement("div");
-    mealItemsContainer.classList.add("meal-items");
-    meal.mealItems.forEach(item => {
-        const mealParagraph = document.createElement("p");
-        mealParagraph.textContent = `${item.amount} ${item.food.densityUnits} ${item.food.foodName} ${item.food}`
-        mealItemsContainer.append(mealParagraph);
-    })
-
-    const removeButton = document.createElement("button");
-    removeButton.textContent = "Remove";
-    removeButton.addEventListener("click", (e) => {
-        e.preventDefault();
-        removeMeal(meal);
-    })
-    mealContainer.append(mealItemsContainer);
-}
-
 // <-- Add / Remove functions -->
-function addMeal(meal) {
+export function addMeal(meal) {
     meals.push(meal);
     localStorage.setItem("meals", JSON.stringify(meals));
     renderMeals();
 }
 
-function removeMeal(meal) {
+export function removeMeal(meal) {
     const index = meals.findIndex(item => item.id === meal.id);
     if (index !== -1) {
         meals.splice(index, 1);
@@ -138,13 +104,17 @@ function removeMeal(meal) {
     renderMeals();
 }
 
-function addFood(food) {
+export function addFood(food) {
+    if (foods.find(f => f.foodName === food.foodName)) {
+        alert("A food by that name already exist.")
+        return
+    }
     foods.push(food);
     localStorage.setItem("foods", JSON.stringify(foods));
     renderFoods();
 }
 
-function removeFood(food) {
+export function removeFood(food) {
     const index = foods.findIndex(item => item.id === food.id);
     if (index !== -1) {
         foods.splice(index, 1);
@@ -155,10 +125,18 @@ function removeFood(food) {
 }
 
 // <-- Render functions -->
+
+function renderMealItems() {
+    mealItemsContainer.replaceChildren();
+    mealItems.forEach(item => {
+        const mealItemElement = createMealItemElement(item)
+        mealItemsContainer.append(mealItemElement);
+    })
+}
 function renderFoods() {
     foodContainer.replaceChildren();
     foods.forEach(food => {
-        createFoodElement(food);
+        foodContainer.append(createFoodElement(food));
     })
     localStorage.setItem("foods", JSON.stringify(foods));
 }
@@ -166,7 +144,7 @@ function renderFoods() {
 function renderMeals() {
     mealContainer.replaceChildren();
     meals.forEach((meal, index) => {
-        createMealElement(meal);
+        mealContainer.append(createMealElement(meal));
     })
     localStorage.setItem("meals", JSON.stringify(meals));
 }
