@@ -59,11 +59,11 @@
 
             <label for="foodInput">Food:</label>
             <div class="meal-item-inputs">
-                <input id="food-input" list="food-list" placeholder="Food name">
+                <input type="text" id="food-input" list="food-list" placeholder="Food name" autocomplete="off">
+                <datalist id="food-list"></datalist>
                 <input id="amount-input" type="number" placeholder="Amount (g / ml)" min="1">
                 <button type="button" id="addMealItem-button">+ Add Meal Item</button>
             </div>
-            <datalist id="food-list"></datalist>
             <h3>Meal content:</h3>
             <div class="meal-items" id="meal-items"></div>
             <button type="submit">Save Meal</button>
