@@ -4,7 +4,13 @@ import { removeFood, removeMeal } from "../main.js"
 
 export function createMealItemElement(mealItem) {
     const mealItemElement = document.createElement("p");
-    mealItemElement.textContent = `${mealItem.amount}${mealItem.food.units} ${mealItem.food.foodName}`;
+    const amountElement = document.createElement("span");
+    amountElement.textContent = `${mealItem.amount}${mealItem.food.units} `;
+    const foodNameElement = document.createElement("span");
+    foodNameElement.textContent = ` ${mealItem.food.foodName} `;
+    const caloriesElement = document.createElement("span");
+    caloriesElement.textContent = `${mealItem.calories}${mealItem.units}`;
+    mealItemElement.append(amountElement, foodNameElement, caloriesElement)
     return mealItemElement;
 }
 export function createFoodElement(food) {
@@ -28,6 +34,7 @@ export function createFoodElement(food) {
 
     const removeButton = document.createElement("button");
     removeButton.textContent = "Remove";
+    removeButton.classList.add("remove-button");
     removeButton.addEventListener("click", (e) => {
         e.preventDefault();
         removeFood(food);
@@ -59,28 +66,28 @@ export function createMealElement(meal) {
     mealCard.classList.add("meal-card");
     const categoryElement = document.createElement("h3");
     categoryElement.textContent = meal.category;
-    mealCard.append(categoryElement);
+    
 
     const timestampElement = document.createElement("h4");
-    timestampElement.textContent = meal.timestamp;
-    mealCard.append(timestampElement);
+    timestampElement.textContent = `${new Date(meal.timestamp)}`;
+    
 
     const mealItemsElement = document.createElement("div");
     mealItemsElement.classList.add("meal-items");
     meal.mealItems.forEach(item => {
-        const mealParagraph = document.createElement("p");
-        mealParagraph.textContent = `${item.amount} ${item.food.densityUnits} ${item.food.foodName} ${item.food}`
-        mealItemsElement.append(mealParagraph);
+        mealItemsElement.append(createMealItemElement(item));
     })
 
-    mealCard.append(mealItemsElement);
+    const statsElement = document.createElement("strong");
+    statsElement.textContent = `Calories: ${meal.totalCalories}kcal`;
 
     const removeButton = document.createElement("button");
     removeButton.textContent = "Remove";
+    removeButton.classList.add("remove-button");
     removeButton.addEventListener("click", (e) => {
         e.preventDefault();
         removeMeal(meal);
     })
-    mealCard.append(categoryElement, timestampElement, mealItemsElement, removeButton);
+    mealCard.append(categoryElement, timestampElement, mealItemsElement, statsElement, removeButton);
     return mealCard;
 }
