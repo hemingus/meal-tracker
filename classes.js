@@ -14,7 +14,8 @@ export class Food {
     }
 
     get units() {
-        return this.isDrink ? "ml" : "g";
+        const units = this.isDrink ? "ml" : "g";
+        return units;
     }
 
     get foodEmoji() {
@@ -24,11 +25,12 @@ export class Food {
 }
 
 export class Meal {
-    constructor (mealItems = [], category = "Snack", { id = crypto.randomUUID(), timestamp = Date.now() } = {}) {
+    constructor (mealItems = [], category = "Snack", { id = crypto.randomUUID(), timestamp = Date.now(), notes="" } = {}) {
         this.id = id;
         this.mealItems = mealItems;
         this.category = category;
         this.timestamp = timestamp;
+        this.notes = notes;
     }
 
     get totalCalories() {
@@ -43,6 +45,10 @@ export class MealItem {
     }
 
     get calories() {
-        return (this.food.energyDensity * this.amount) / 100;
+        return Math.floor((this.food.energyDensity * this.amount) / 100);
+    }
+
+    get units() {
+        return "kcal";
     }
 }
