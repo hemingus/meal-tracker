@@ -115,9 +115,10 @@ h2 {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: center;
+    align-items: stretch;
     gap: 1rem;
     background-color: var(--color2);
+    padding: 3rem;
 }
 
 #foods-container {
@@ -131,6 +132,7 @@ h2 {
 }
 
 .meal-items {
+    width: 100%;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -143,7 +145,8 @@ h2 {
 }
 
 .meal-items p {
-    background: lightblue;
+    width: 100%;
+    background: var(--color3);
     font-size: 1.2rem;
     border-radius: 4px;
     padding: 4px 8px;
@@ -172,4 +175,12 @@ h2 {
     padding: 1rem;
     border-radius: 0.5rem;
     border: 1px solid var(--color4);
+}
+
+.remove-button {
+    padding: 0.3rem;
+    border-radius: 4px;
+    background-color: black;
+    color: orangered;
+    cursor: pointer;
 }
