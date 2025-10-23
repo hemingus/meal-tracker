@@ -18,6 +18,9 @@ export function createMealItemElement(mealItem) {
     mealItemElement.append(amountElement, foodNameElement, caloriesElement)
     return mealItemElement;
 }
+
+
+
 export function createFoodElement(food) {
     const foodCard = document.createElement("div");
     foodCard.id = food.id;
@@ -65,6 +68,8 @@ export function createEditButton() {
         document.body.append(editForm);
     })
 }
+
+
 
 export function createMealElement(meal) {
     const mealCard = document.createElement("div");
