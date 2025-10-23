@@ -21,6 +21,7 @@ body {
     justify-content: center;
     align-items: center;
     background: tan;
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif
 }
 
 main {
@@ -82,6 +83,7 @@ h2 {
     border-radius: 0.5rem;
     cursor: pointer;
 }
+
 .checkbox-field {
     width: 100%;
     display: flex;
@@ -112,6 +114,7 @@ h2 {
 }
 
 #meals-container {
+    width: 100%;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -122,6 +125,7 @@ h2 {
 }
 
 #foods-container {
+    width: 100%;
     display: flex;
     justify-content: flex-start;
     align-items: stretch;
@@ -183,4 +187,18 @@ h2 {
     background-color: black;
     color: orangered;
     cursor: pointer;
+}
+
+.amount-p {
+    font-size: 1.2rem;
+    color: var(--color2);
+}
+
+.foodname-p {
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+.calories-p {
+    color: darkred;
 }
