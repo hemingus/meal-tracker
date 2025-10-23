@@ -6,10 +6,15 @@ export function createMealItemElement(mealItem) {
     const mealItemElement = document.createElement("p");
     const amountElement = document.createElement("span");
     amountElement.textContent = `${mealItem.amount}${mealItem.food.units} `;
+    amountElement.classList.add("amount-p");
+
     const foodNameElement = document.createElement("span");
     foodNameElement.textContent = ` ${mealItem.food.foodName} `;
+    foodNameElement.classList.add("foodname-p");
+
     const caloriesElement = document.createElement("span");
-    caloriesElement.textContent = `${mealItem.calories}${mealItem.units}`;
+    caloriesElement.textContent = `=${mealItem.calories} ${mealItem.units}`;
+    caloriesElement.classList.add("calories-p");
     mealItemElement.append(amountElement, foodNameElement, caloriesElement)
     return mealItemElement;
 }
