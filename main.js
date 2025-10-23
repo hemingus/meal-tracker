@@ -15,9 +15,11 @@ const meals = storedMeals.map(m => {
         m)});
 const storedFoods = JSON.parse(localStorage.getItem("foods")) || [];
 const foods = storedFoods.map(f => new Food(f.foodName, f.energyDensity, f));
-const mealItemsContainer = document.querySelector("#meal-items");
 const mealContainer = document.querySelector("#meals-container");
 const foodContainer = document.querySelector("#foods-container");
+
+  
+
 
 // =======================================================================
 // <-- Runs when app starts -->
@@ -44,7 +46,24 @@ foodForm.addEventListener("submit", (e) => {
 let mealItemsToAdd = [];
 const categorySelect = document.querySelector("#meal-category");
 const foodInput = document.querySelector("#food-input");
+foodInput.addEventListener("input", () => {
+    const query = foodInput.value.toLowerCase();
+    foodList.innerHTML = "";
+    const matches = foods
+        .filter(f => f.foodName.toLowerCase().startsWith(query))
+        .slice(0, 5);
+
+    matches.forEach(match => {
+        const option = document.createElement("option");
+        option.value = match.foodName;
+        foodList.appendChild(option);
+    })
+})
+
+const foodList = document.getElementById("food-list");
 const amountInput = document.querySelector("#amount-input");
+
+const mealItemsContainer = document.querySelector("#meal-items");
 
 const addMealItemButton = document.querySelector("#addMealItem-button");
 addMealItemButton.addEventListener("click", (e) => {
@@ -80,6 +99,7 @@ mealForm.addEventListener("submit", (e) => {
     if (mealItemsToAdd.length > 0) {
         addMeal(new Meal(mealItemsToAdd, categorySelect.value));
         mealItemsToAdd = [];
+        renderMealItems();
         e.target.reset();
         return
     } 
