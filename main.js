@@ -8,7 +8,11 @@ import {
 
 // <-- Globals -->
 const storedMeals = JSON.parse(localStorage.getItem("meals")) || [];
-const meals = storedMeals.map(m => new Meal(m.mealItems, m.category, m));
+const meals = storedMeals.map(m => {
+    return new Meal(m.mealItems.map(mi => 
+        new MealItem(new Food(mi.food.foodName, mi.food.energyDensity, mi.food), mi.amount)), 
+        m.category, 
+        m)});
 const storedFoods = JSON.parse(localStorage.getItem("foods")) || [];
 const foods = storedFoods.map(f => new Food(f.foodName, f.energyDensity, f));
 const mealItemsContainer = document.querySelector("#meal-items");
@@ -37,7 +41,7 @@ foodForm.addEventListener("submit", (e) => {
 })
 
 // Meal Item adding handling
-let mealItems = [];
+let mealItemsToAdd = [];
 const categorySelect = document.querySelector("#meal-category");
 const foodInput = document.querySelector("#food-input");
 const amountInput = document.querySelector("#amount-input");
@@ -53,7 +57,7 @@ addMealItemButton.addEventListener("click", (e) => {
     );
 
     if (!food) {
-        alert(`Can't find the food: "${foodName}".`);
+        alert(`Can't find a food named: "${foodName}".`);
         return;
     }
     if (isNaN(amount) || amount <= 0) {
@@ -61,8 +65,8 @@ addMealItemButton.addEventListener("click", (e) => {
         return;
     }
     const mealItem = new MealItem(food, amount);
-    mealItems.push(mealItem);
-    console.log(mealItems);
+    mealItemsToAdd.push(mealItem);
+    console.log(mealItemsToAdd);
     renderMealItems();
     foodInput.value = "";
     amountInput.value = "";
@@ -73,9 +77,9 @@ addMealItemButton.addEventListener("click", (e) => {
 const mealForm = document.querySelector("#meal-form");
 mealForm.addEventListener("submit", (e) => {
     e.preventDefault();
-    if (mealItems.length > 0) {
-        addMeal(new Meal(mealItems, categorySelect.value));
-        mealItems = [];
+    if (mealItemsToAdd.length > 0) {
+        addMeal(new Meal(mealItemsToAdd, categorySelect.value));
+        mealItemsToAdd = [];
         e.target.reset();
         return
     } 
@@ -135,7 +139,7 @@ export function removeFood(food) {
 
 function renderMealItems() {
     mealItemsContainer.replaceChildren();
-    mealItems.forEach(item => {
+    mealItemsToAdd.forEach(item => {
         const mealItemElement = createMealItemElement(item)
         mealItemsContainer.append(mealItemElement);
     })
