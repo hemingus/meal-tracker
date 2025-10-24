@@ -86,7 +86,7 @@ addMealItemButton.addEventListener("click", (e) => {
     const mealItem = new MealItem(food, amount);
     mealItemsToAdd.push(mealItem);
     console.log(mealItemsToAdd);
-    renderMealItems();
+    renderMealItems(mealItemsToAdd);
     foodInput.value = "";
     amountInput.value = "";
     foodInput.focus();
@@ -99,20 +99,79 @@ mealForm.addEventListener("submit", (e) => {
     if (mealItemsToAdd.length > 0) {
         addMeal(new Meal(mealItemsToAdd, categorySelect.value));
         mealItemsToAdd = [];
-        renderMealItems();
+        mealItemsContainer.replaceChildren();
         e.target.reset();
         return
     } 
     alert("Meal has no content. Add minimum 1 meal item.")
 })
 
+const filterCategory = document.getElementById("filterCategory");
+const filterCaloriesType = document.getElementById("filterCaloriesType");
+const filterCaloriesValue = document.getElementById("filterCaloriesValue");
+const filterDate = document.getElementById("filterDate");
+const sortMeals = document.getElementById("sortMeals");
+const clearFiltersBtn = document.getElementById("clearFiltersBtn");
 
+function applyFilters() {
+    let filtered = [...meals];
 
-// Render
-renderFoods();
-renderMeals();
+    const cat = filterCategory.value;
+    if (cat !== "all") {
+        filtered = filtered.filter(m => m.category === cat);
+    }
 
+    const type = filterCaloriesType.value;
+    const val = parseFloat(filterCaloriesValue.value);
+    if (type !== "none" && !isNaN(val)) {
+    if (type === "above") filtered = filtered.filter(m => m.totalCalories > val);
+    if (type === "below") filtered = filtered.filter(m => m.totalCalories < val);
+    }
 
+    const dateValue = filterDate.value;
+    if (dateValue) {
+        const selectedDay = new Date(dateValue);
+        filtered = filtered.filter(m => {
+        const mealDate = new Date(m.timestamp);
+        return (
+            mealDate.getFullYear() === selectedDay.getFullYear() &&
+            mealDate.getMonth() === selectedDay.getMonth() &&
+            mealDate.getDate() === selectedDay.getDate()
+        );
+        });
+    }
+    // Sorting
+    switch (sortMeals.value) {
+        case "caloriesAsc":
+            filtered.sort((a, b) => a.totalCalories - b.totalCalories);
+            break;
+        case "caloriesDesc":
+            filtered.sort((a, b) => b.totalCalories - a.totalCalories);
+            break;
+        case "dateAsc":
+            filtered.sort((a, b) => a.timestamp - b.timestamp);
+            break;
+        case "dateDesc":
+            filtered.sort((a, b) => b.timestamp - a.timestamp);
+            break;
+    }
+    renderMeals(filtered);
+}
+
+clearFiltersBtn.addEventListener("click", () => {
+    filterCategory.value = "all";
+    filterCaloriesType.value = "none";
+    filterCaloriesValue.value = "";
+    filterDate.value = "";
+    renderMeals(meals);
+});
+
+[filterCategory, filterCaloriesType, filterCaloriesValue, filterDate, sortMeals]
+    .forEach(el => el.addEventListener("input", applyFilters));
+
+///// Render /////
+renderFoods(foods);
+renderMeals(meals);
 
 // =========
 // Functions
@@ -122,7 +181,7 @@ renderMeals();
 export function addMeal(meal) {
     meals.push(meal);
     localStorage.setItem("meals", JSON.stringify(meals));
-    renderMeals();
+    renderMeals(meals);
 }
 
 export function removeMeal(meal) {
@@ -132,7 +191,7 @@ export function removeMeal(meal) {
         console.log(`removed item with id: ${meal.id} from meals.`);
         localStorage.setItem("meals", JSON.stringify(meals));
     }
-    renderMeals();
+    renderMeals(meals);
 }
 
 export function addFood(food) {
@@ -142,7 +201,7 @@ export function addFood(food) {
     }
     foods.push(food);
     localStorage.setItem("foods", JSON.stringify(foods));
-    renderFoods();
+    renderFoods(foods);
 }
 
 export function removeFood(food) {
@@ -152,37 +211,29 @@ export function removeFood(food) {
         console.log(`removed item with id: ${food.id} from foods.`);
         localStorage.setItem("foods", JSON.stringify(foods));
     }
-    renderFoods();
+    renderFoods(foods);
 }
 
 // <-- Render functions -->
-
-function renderMealItems() {
+function renderMealItems(arr) {
     mealItemsContainer.replaceChildren();
-    mealItemsToAdd.forEach(item => {
+    arr.forEach(item => {
         const mealItemElement = createMealItemElement(item)
         mealItemsContainer.append(mealItemElement);
     })
 }
-function renderFoods() {
+function renderFoods(arr) {
     foodContainer.replaceChildren();
-    foods.forEach(food => {
+    arr.forEach(food => {
         foodContainer.append(createFoodElement(food));
     })
     localStorage.setItem("foods", JSON.stringify(foods));
 }
 
-function renderMeals() {
+function renderMeals(arr) {
     mealContainer.replaceChildren();
-    meals.forEach((meal, index) => {
+    arr.forEach(meal => {
         mealContainer.append(createMealElement(meal));
     })
     localStorage.setItem("meals", JSON.stringify(meals));
 }
-
-
-
-
-
-
-
