@@ -71,6 +71,37 @@
 
         <section>
             <h2>Meal</h2>
+            <div id="meal-filters">
+                <label>Category:</label>
+                <select id="filterCategory">
+                    <option value="all">All</option>
+                    <option value="Breakfast">Breakfast</option>
+                    <option value="Lunch">Lunch</option>
+                    <option value="Dinner">Dinner</option>
+                    <option value="Snack">Snack</option>
+                </select>
+
+                <label>Calories:</label>
+                <select id="filterCaloriesType">
+                    <option value="none">All</option>
+                    <option value="above">Above</option>
+                    <option value="below">Below</option>
+                </select>
+                <input type="number" id="filterCaloriesValue" placeholder="Calories" style="width:100px;">
+
+                <label>Date:</label>
+                <input type="date" id="filterDate">
+
+                <label>Sort by:</label>
+                <select id="sortMeals">
+                    <option value="none">None</option>
+                    <option value="caloriesAsc">Calories ↑</option>
+                    <option value="caloriesDesc">Calories ↓</option>
+                    <option value="dateAsc">Date ↑</option>
+                    <option value="dateDesc">Date ↓</option>
+                </select>
+                <button id="clearFiltersBtn">Clear</button>
+            </div>
             <div id="meals-container"></div>
         </section>
     </main>
