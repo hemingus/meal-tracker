@@ -13,6 +13,7 @@
     --color4: #F18F01;
     --color5: #F3C677;
     --color6: lightgreen;
+    --ghost-white: #FBFBFF;
     --gunmetal: #16262E;
     --charcoal: #2E4756;
     --cool-grey: #9FA2B2;
@@ -50,7 +51,7 @@ body {
 }
 
 main {
-    max-width: 1080px;
+    max-width: 1200px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -141,7 +142,7 @@ h2 {
 #meals-container {
     width: 100%;
     display: flex;
-    flex-direction: column;
+    flex-wrap: wrap;
     justify-content: center;
     align-items: stretch;
     gap: 1rem;
@@ -152,19 +153,20 @@ h2 {
 #foods-container {
     width: 100%;
     display: flex;
-    justify-content: flex-start;
-    align-items: stretch;
     flex-wrap: wrap;
+    justify-content: center;
+    align-items: stretch;
     gap: 1rem;
-    background-color: var(--color2);
+    background-color: var(--dim-grey);
     padding: 3rem;
 }
+
 
 .meal-items {
     width: 100%;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: flex-start;
     background-color: var(--earth-yellow);
     border-radius: 0.5rem;
@@ -174,19 +176,24 @@ h2 {
 }
 
 .meal-items p {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     width: 100%;
     background: var(--color5);
-    font-size: 1.2rem;
+    font-size: clamp(1rem, 2vw, 1.35rem);
     border-radius: 4px;
     padding: 4px 8px;
+    gap: 0.5rem;
 }
 
 .meal-card {
+    width: clamp(280px, 40vw, 500px);
     background-color: var(--dark-green);
     color: white;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: space-between;
     align-items: flex-start;
     gap: 1rem;
     padding: 1rem;
@@ -195,13 +202,14 @@ h2 {
 }
 
 .food-card {
-    max-width: 300px;
+    flex-grow: 1;
+    width: clamp(250px, 30vw, 300px);
     background-color: var(--color5);
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     align-items: flex-start;
-    gap: 1rem;
+    gap: 0.5rem;
     padding: 1rem;
     border-radius: 0.5rem;
     border: 1px solid var(--color4);
@@ -216,16 +224,19 @@ h2 {
 }
 
 .amount-p {
-    font-size: 1.2rem;
     color: var(--color2);
 }
 
 .foodname-p {
     color: var(--licorice);
-    font-size: 1.5rem;
     font-weight: 600;
+    flex-grow: 1;
 }
 
 .calories-p {
     color: darkred;
+}
+
+.stats-p {
+    color: var(--carrot-orange);
 }
