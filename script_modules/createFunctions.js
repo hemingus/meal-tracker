@@ -77,9 +77,11 @@ export function createMealElement(meal) {
     const categoryElement = document.createElement("h3");
     categoryElement.textContent = meal.category;
     
+    
 
     const timestampElement = document.createElement("h4");
     timestampElement.textContent = `${new Date(meal.timestamp)}`;
+    timestampElement.style.color = "var(--cool-grey)";
     
 
     const mealItemsElement = document.createElement("div");
@@ -89,7 +91,8 @@ export function createMealElement(meal) {
     })
 
     const statsElement = document.createElement("strong");
-    statsElement.textContent = `Calories: ${meal.totalCalories}kcal`;
+    statsElement.textContent = `${meal.totalCalories} kcal`;
+    statsElement.classList.add("stats-p");
 
     const removeButton = document.createElement("button");
     removeButton.textContent = "Remove";
