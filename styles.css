@@ -13,6 +13,30 @@
     --color4: #F18F01;
     --color5: #F3C677;
     --color6: lightgreen;
+    --gunmetal: #16262E;
+    --charcoal: #2E4756;
+    --cool-grey: #9FA2B2;
+    --cerulean: #3C7A89;
+    --peach: #F1BF98;
+    --sage: #BACBA9;
+    --dim-grey: #717568;
+    --van-dyke: #38302E;
+    --black-olive: #3F4739;
+    --nyanza: #E1F4CB;
+    --dark-green: #17301C;
+    --asparagus: #698F3F;
+    --apple-green: #72B01D;
+    --mindaro: #C8E087;
+    --lime: #CEFF1A;
+    --deep-sky-blue: #30C5FF;
+    --silver-lake-blue: #6C91BF;
+    --air-force-blue: #628395;
+    --earth-yellow: #DBAD6A;
+    --carrot-orange: #F79824;
+    --rufous: #A33B20;
+    --davy-gray: #575761;
+    --prussian-blue: #172A3A;
+    --licorice: #0D0106;
 }
 
 body {
@@ -21,7 +45,8 @@ body {
     justify-content: center;
     align-items: center;
     background: tan;
-    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    background-color: var(--davy-gray);
 }
 
 main {
@@ -120,7 +145,7 @@ h2 {
     justify-content: center;
     align-items: stretch;
     gap: 1rem;
-    background-color: var(--color2);
+    background-color: var(--dim-grey);
     padding: 3rem;
 }
 
@@ -141,23 +166,24 @@ h2 {
     flex-direction: column;
     justify-content: center;
     align-items: flex-start;
-    background: var(--color2);
+    background-color: var(--earth-yellow);
     border-radius: 0.5rem;
-    border: 2px dotted blue;
+    border: 1px solid var(--carrot-orange);
     padding: 0.5rem;
     gap: 0.5rem;
 }
 
 .meal-items p {
     width: 100%;
-    background: var(--color3);
+    background: var(--color5);
     font-size: 1.2rem;
     border-radius: 4px;
     padding: 4px 8px;
 }
 
 .meal-card {
-    background-color: var(--color5);
+    background-color: var(--dark-green);
+    color: white;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -165,7 +191,7 @@ h2 {
     gap: 1rem;
     padding: 1rem;
     border-radius: 0.5rem;
-    border: 1px solid var(--color4);
+    border: 2px solid var(--color4);
 }
 
 .food-card {
@@ -195,6 +221,7 @@ h2 {
 }
 
 .foodname-p {
+    color: var(--licorice);
     font-size: 1.5rem;
     font-weight: 600;
 }
