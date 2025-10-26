@@ -36,6 +36,21 @@ export class Meal {
     get totalCalories() {
         return this.mealItems.reduce((sum, item) => sum + item.calories, 0);
     }
+
+    get mealEmoji() {
+        switch (this.category) {
+            case "Breakfast":
+                return "🥪";
+            case "Lunch":
+                return "🍱";
+            case "Dinner":
+                return "🍝";
+            case "Snack":
+                return "🍿";
+            default:
+                return "🍽️";
+        }
+    }
 }
 
 export class MealItem {
