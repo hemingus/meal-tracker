@@ -75,7 +75,7 @@ export function createMealElement(meal) {
     const mealCard = document.createElement("div");
     mealCard.classList.add("meal-card");
     const categoryElement = document.createElement("h3");
-    categoryElement.textContent = meal.category;
+    categoryElement.textContent = `${meal.category} ${meal.mealEmoji}`;
     
     
 
