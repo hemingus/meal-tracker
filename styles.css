@@ -202,7 +202,6 @@ h2 {
 }
 
 .food-card {
-    flex-grow: 1;
     width: clamp(250px, 30vw, 300px);
     background-color: var(--color5);
     display: flex;
