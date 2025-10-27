@@ -77,13 +77,10 @@ export function createMealElement(meal) {
     const categoryElement = document.createElement("h3");
     categoryElement.textContent = `${meal.category} ${meal.mealEmoji}`;
     
-    
-
     const timestampElement = document.createElement("h4");
     timestampElement.textContent = `${new Date(meal.timestamp)}`;
-    timestampElement.style.color = "var(--cool-grey)";
+    timestampElement.classList.add("meal-timestamp");
     
-
     const mealItemsElement = document.createElement("div");
     mealItemsElement.classList.add("meal-items");
     meal.mealItems.forEach(item => {
