@@ -287,7 +287,7 @@ h2 {
     font-size: 1.2rem;
 }
 
-#meal-filters select, input {
+#meal-filters select, #meal-filters input {
     background-color: var(--gunmetal);
     color: var(--lime);
     font-size: 1.2rem;
