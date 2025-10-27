@@ -56,31 +56,37 @@ main {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    gap: 2rem;
 }
 
 h1 {
     width: 100%;
     padding: 1rem;
     text-align: center;
-    text-shadow: 2px 2px 2px orange;
-    background: tan;
+    text-shadow: 5px 5px 5px var(--licorice);
+    background-image: radial-gradient(var(--prussian-blue), var(--black-olive));
+    color: var(--mindaro);
+    font-family: "sans-serif";
 }
 
 h2 {
     width: 100%;
-    background: lightgreen;
     padding: 1rem;
     text-align: center;
+    text-shadow: 3px 3px 3px var(--licorice);
+    background-image: radial-gradient(var(--dark-green), var(--black-olive));
+    color: var(--earth-yellow);
 }
 
 .form {
-    background-image: linear-gradient(var(--color2) -100%, var(--color3), var(--color2) 200%);
+    background-image: linear-gradient(to top right, var(--dark-green) -100%, var(--sage), var(--dark-green) 200%);
     text-align: left;
     width: 100%;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
     align-items: flex-start;
+    font-size: clamp(1rem, 2vw, 1.3rem);
     padding: 1rem;
     gap: 0.5rem;
 }
@@ -89,25 +95,42 @@ h2 {
     width: 100%;
     padding: 4px;
     font-size: 1.2rem;
+    background-color: var(--color3);
+    font-size: clamp(1rem, 2vw, 1.3rem);
+    font-weight: 600;
+    border-radius: 0.5rem;
+    padding: 0.5rem;
+    border: 2px solid var(--asparagus);
 }
 .form label {
     width: 100%;
     padding: 4px;
-    font-size: 1.2rem;
+    font-size: clamp(1rem, 2vw, 1.3rem);
 }
 
 .form select {
     background: var(--color2);
     color: var(--color5);
-    font-size: 1.2rem;
+    font-size: clamp(1rem, 2vw, 1.3rem);
+    padding: 0.2rem;
 }
 
 .form button {
     background-color: var(--color2);
     color: var(--color3);
+    font-size: 1rem;
     padding: 0.5rem;
     border-radius: 0.5rem;
     cursor: pointer;
+}
+
+.form button:hover {
+    box-shadow: 0px 0px 10px 1px var(--lime);
+    color: var(--lime);
+}
+
+.checkbox {
+    transform: scale(1.5);
 }
 
 .checkbox-field {
@@ -187,6 +210,14 @@ h2 {
     gap: 0.5rem;
 }
 
+.meal-item-inputs {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+}
+
 .meal-card {
     width: clamp(280px, 40vw, 500px);
     background-color: var(--dark-green);
@@ -239,3 +270,48 @@ h2 {
 .stats-p {
     color: var(--carrot-orange);
 }
+
+.meal-timestamp {
+    font-size: 0.8rem;
+    color: var(--sage);
+}
+
+#meal-filters {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem;
+    background: var(--black-olive);
+    font-size: 1.2rem;
+}
+
+#meal-filters select, input {
+    background-color: var(--gunmetal);
+    color: var(--lime);
+    font-size: 1.2rem;
+    padding: 0.2rem;
+    border-radius: 0.3rem;
+}
+
+#meal-filters label {
+    color: white;
+}
+
+#meal-filters button {
+    background-color: var(--prussian-blue);
+    color: var(--sage);
+    font-size: 1.2rem;
+    padding: 0.2rem;
+    border-radius: 0.3rem;
+    border-color: var(--sage);
+    cursor: pointer;
+}
+
+#meal-filters button:hover {
+    color: var(--nyanza);
+    border-color: var(--nyanza);
+}
+
+
