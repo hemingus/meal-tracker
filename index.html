@@ -9,97 +9,103 @@
 </head>
 <body>
     <main>
-        <h1>Meal Tracker</h1>
-        <form id="food-form" class="form">
-            <h3>New Food</h3>
+        <h1>~ Meal Tracker ~</h1>
 
-            <label>
-                Food name:
-                <input type="text" id="foodName-input" required>
-            </label>
-
-            <label>
-                Energy density (kcal / 100g or 100ml):
-                <input type="number" id="energyDensity-input" required>
-            </label>
-
-            <div class="checkbox-field">
-                <label>Is a drink/beverage</label>
-                <input class="checkbox" type="checkbox" id="isDrink-input">
-            </div>
-            
-
-            <label>
-                Description (optional):
-                <input type="text" id="foodDescription-input">
-            </label>
-
-             <button type="submit">Save Food</button>
-        </form>
-
-        <section>
+        <section id="food-section">
             <h2>Food</h2>
-            <div id="foods-container">
+            <form id="food-form" class="form">
+                <h3>New Food</h3>
+
+                <label>
+                    Food name:
+                    <input type="text" id="foodName-input" required>
+                </label>
+
+                <label>
+                    Energy density (kcal / 100g or 100ml):
+                    <input type="number" id="energyDensity-input" required>
+                </label>
+
+                <div class="checkbox-field">
+                    <label>Is a drink/beverage</label>
+                    <input class="checkbox" type="checkbox" id="isDrink-input">
+                </div>
                 
-            </div>
+
+                <label>
+                    Description (optional):
+                    <input type="text" id="foodDescription-input">
+                </label>
+
+                <button type="submit">Save Food</button>
+            </form>
+
+            <div id="foods-container"></div>
         </section>
 
-        <form id="meal-form" class="form">
-            <h3>New Meal</h3>
 
-            <label>
-                Meal category:
-                <select id="meal-category" name="meal-category" required>
-                    <option value="Breakfast">Breakfast</option>
-                    <option value="Lunch">Lunch</option>
-                    <option value="Dinner">Dinner</option>
-                    <option value="Snack">Snack</option>
-                </select>
-            </label>
 
-            <label for="foodInput">Food:</label>
-            <div class="meal-item-inputs">
-                <input type="text" id="food-input" list="food-list" placeholder="Food name" autocomplete="off">
-                <datalist id="food-list"></datalist>
-                <input id="amount-input" type="number" placeholder="Amount (g / ml)" min="1">
-                <button type="button" id="addMealItem-button">+ Add Meal Item</button>
-            </div>
-            <h3>Meal content:</h3>
-            <div class="meal-items" id="meal-items"></div>
-            <button type="submit">Save Meal</button>
-        </form>
+        <section id="meal-section">
+            <h2>Meals</h2>
 
-        <section>
-            <h2>Meal</h2>
+            <form id="meal-form" class="form">
+                <h3>New Meal</h3>
+
+                <label>
+                    Meal category:
+                    <select id="meal-category" name="meal-category" required>
+                        <option value="Breakfast">Breakfast</option>
+                        <option value="Lunch">Lunch</option>
+                        <option value="Dinner">Dinner</option>
+                        <option value="Snack">Snack</option>
+                    </select>
+                </label>
+
+                <label for="foodInput">Meal item:</label>
+                <div class="meal-item-inputs">
+                    <input type="text" id="food-input" list="food-list" placeholder="Food name" autocomplete="off">
+                    <datalist id="food-list"></datalist>
+                    <input id="amount-input" type="number" placeholder="Amount (g / ml)" min="1">
+                    <button type="button" id="addMealItem-button">+ Add Meal Item</button>
+                </div>
+                <h3>Meal content:</h3>
+                <div class="meal-items" id="meal-items"></div>
+                <button type="submit">Save Meal</button>
+            </form>
+
             <div id="meal-filters">
-                <label>Category:</label>
-                <select id="filterCategory">
-                    <option value="all">All</option>
-                    <option value="Breakfast">Breakfast</option>
-                    <option value="Lunch">Lunch</option>
-                    <option value="Dinner">Dinner</option>
-                    <option value="Snack">Snack</option>
-                </select>
+                <label>Category:
+                    <select id="filterCategory">
+                        <option value="all">All</option>
+                        <option value="Breakfast">Breakfast</option>
+                        <option value="Lunch">Lunch</option>
+                        <option value="Dinner">Dinner</option>
+                        <option value="Snack">Snack</option>
+                    </select>
+                </label>
 
-                <label>Calories:</label>
-                <select id="filterCaloriesType">
-                    <option value="none">All</option>
-                    <option value="above">Above</option>
-                    <option value="below">Below</option>
-                </select>
-                <input type="number" id="filterCaloriesValue" placeholder="Calories" style="width:100px;">
+                <label>Calories:
+                    <select id="filterCaloriesType">
+                        <option value="none">All</option>
+                        <option value="above">Above</option>
+                        <option value="below">Below</option>
+                    </select>
+                    <input type="number" id="filterCaloriesValue" placeholder="Calories" style="width:100px;">
+                </label>
 
-                <label>Date:</label>
-                <input type="date" id="filterDate">
+                <label>Date:
+                    <input type="date" id="filterDate">
+                </label>
 
-                <label>Sort by:</label>
-                <select id="sortMeals">
-                    <option value="none">None</option>
-                    <option value="caloriesAsc">Calories ↑</option>
-                    <option value="caloriesDesc">Calories ↓</option>
-                    <option value="dateAsc">Date ↑</option>
-                    <option value="dateDesc">Date ↓</option>
-                </select>
+                <label>Sort by:
+                    <select id="sortMeals">
+                        <option value="none">None</option>
+                        <option value="caloriesAsc">Calories ⇧</option>
+                        <option value="caloriesDesc">Calories ⇩</option>
+                        <option value="dateAsc">Date ⇧</option>
+                        <option value="dateDesc">Date ⇩</option>
+                    </select>
+                </label>
                 <button id="clearFiltersBtn">Clear</button>
             </div>
             <div id="meals-container"></div>
